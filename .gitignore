@@ -233,7 +233,6 @@ credentials.json
 # Database dumps
 *.sql
 *.dump
-*.sqlite
 
 # Logs
 logs/
