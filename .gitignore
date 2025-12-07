@@ -54,10 +54,7 @@ cover/
 *.pot
 
 # Django stuff:
-*.log
-local_settings.py
-db.sqlite3
-db.sqlite3-journal
+# (Main Django ignores are in Django specific section below)
 
 # Flask stuff:
 instance/
@@ -148,10 +145,11 @@ db.sqlite3-journal
 # Django media files
 media/
 
-# Django static files
+# Django static files (collected static files)
 staticfiles/
 static_root/
-static/
+# Uncomment the next line if using 'static/' for collected files
+# static/
 
 # Django migrations (uncomment if you want to ignore migrations)
 # */migrations/*.py
@@ -175,10 +173,8 @@ static/
 # vim
 *.swp
 *.swo
-*~
 
 # Emacs
-*~
 \#*\#
 /.emacs.desktop
 /.emacs.desktop.lock
@@ -209,7 +205,6 @@ $RECYCLE.BIN/
 *.lnk
 
 # Linux
-*~
 .directory
 .Trash-*
 
@@ -242,9 +237,9 @@ credentials.json
 
 # Logs
 logs/
-*.log
 
 # Temporary files
 tmp/
 temp/
 *.tmp
+*~
