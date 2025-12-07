@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+
+{% block content %}
+<div class="container mt-5" style="max-width: 600px;">
+  <h3 class="mb-4">Создание поста</h3>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+
+    <div class="mb-3">
+      <label class="form-label">Заголовок</label>
+      {{ form.title|add_class:"form-control" }}
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Текст</label>
+      {{ form.body|add_class:"form-control" }}
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Активный?</label>
+      {{ form.is_active }}
+    </div>
+
+    <button type="submit" class="btn btn-success">Опубликовать</button>
+    <a href="{% url 'posts:home' %}" class="btn btn-secondary">Отмена</a>
+  </form>
+</div>
+{% endblock %}

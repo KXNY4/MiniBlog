@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+
+{% block content %}
+<div class="container mt-4">
+  <div class="card mb-4">
+    <div class="card-body">
+      <h3 class="card-title">{{ post.title }}</h3>
+      <p class="card-text">{{ post.body }}</p>
+      <p class="text-muted">Автор: {{ post.author }} • {{ post.created_at|date:"d.m.Y H:i" }}</p>
+      {% if user == post.author %}
+        <a href="{{ post.get_slug_to_delete_post }}" class="btn btn-outline-danger">Удалить</a>
+      {% endif %}
+
+      <!-- Лайк -->
+      <form method="post" action="{{ post.get_slug_to_like_post }}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-sm {% if user_has_liked %}btn-danger{% else %}btn-outline-danger{% endif %}">
+          ❤ {{ post.liked_posts.count }}
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Комментарии -->
+  <div class="mb-4">
+    <h5>Комментарии ({{ comments.count }})</h5>
+    {% for comment in comments %}
+      <div class="border p-2 mb-2">
+        <strong>{{ comment.author.username }}</strong> — {{ comment.created_at|date:"d.m.Y H:i" }}<br>
+        {{ comment.body }}
+      </div>
+    {% empty %}
+      <p>Комментариев пока нет.</p>
+    {% endfor %}
+  </div>
+
+  <!-- Форма комментария -->
+  {% if user.is_authenticated %}
+    <form method="post">
+      {% csrf_token %}
+      <div class="mb-3">
+        {{ form.as_p }}
+      </div>
+      <button type="submit" class="btn btn-primary">Добавить комментарий</button>
+    </form>
+  {% else %}
+    <p><a href="{% url 'users:login' %}">Войдите</a>, чтобы оставить комментарий.</p>
+  {% endif %}
+</div>
+{% endblock %}

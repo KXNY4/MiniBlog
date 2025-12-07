@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<div class="container mt-4">
+  <h2 class="mb-4">Все посты</h2>
+
+  {% for post in posts %}
+    <div class="card mb-3">
+      <div class="card-body">
+        <h4 class="card-title">{{ post.title }}</h4>
+        <p class="card-text">{{ post.body|truncatechars:200 }}</p>
+        <p class="text-muted">
+          Автор: {{ post.author }} • {{ post.created_at|date:"d.m.Y H:i" }}
+        </p>
+        <a href="{{ post.get_absolute_url }}" class="btn btn-sm btn-outline-primary">Читать</a>
+      </div>
+    </div>
+  {% empty %}
+    <p>Постов пока нет.</p>
+  {% endfor %}
+</div>
+{% endblock %}
